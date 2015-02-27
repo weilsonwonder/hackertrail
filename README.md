@@ -11,15 +11,14 @@ When the event is created, other users may sign up for it. Other users will have
 ## Architecture
 The current architecture is based on the following. Attributes are omited, only table names are stated with the relationships.
 
-- **Account** has many **RSVP**, **RSVP** has one **Account**
+- **Account** has many **Participation**, **Participation** has one **Account**
 - **Account** has many **Ownership**, **Ownership** has one **Account**
 - **Account** has many **Template**, **Template** has one **Account**
 - **Account** has many **Profile**, **Profile** has one **Account**
 - **Event** has many **Ownership**, **Ownership** has one **Event**
-- **Event** has many **RSVP**, **RSVP** has one **Event**
-- **Event** has many **Topic**, **Topic** has one **Event**
-- **Event** has many **Attribute**, **Attribute** has one **Event**
-- **Template** has many **Attribute**, **Attribute** has one **Template**
+- **Event** has many **Participation**, **Participation** has one **Event**
+- **Event** has many **Attr**, **Attr** has one **Event**
+- **Template** has many **Attr**, **Attr** has one **Template**
 
 ## How to start
 1. Ensure Ruby on Rails has been installed on the system. For more information on how to install Ruby on Rails, refer to [RubyOnRails](http://rubyonrails.org/ "Ruby on Rails").
