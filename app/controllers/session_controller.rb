@@ -1,10 +1,4 @@
 class SessionController < ApplicationController
-	def new
-		if !current_user.nil?
-			redirect_to dashboard_home_path
-		end
-	end
-
 	def create
 		email = params[:loginEmail]
 		pword = params[:loginPword]
