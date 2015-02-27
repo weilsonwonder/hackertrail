@@ -1,0 +1,68 @@
+<div aria-hidden="true" class="modal fade" id="loginModal" role="dialog" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+				<h4 class="modal-title">Login</h4>
+			</div>
+			<div class="modal-body">
+				<form accept-charset="UTF-8" action="login" method="post" role="form" id="loginForm">
+					<div class="row">
+						<div class="col-md-6">
+							<label class="control-label">Username</label>
+							<input class="form-control" placeholder="your username" type="text" name="loginEmail">
+						</div>
+						<div class="col-md-6">
+							<label class="control-label">Password</label>
+							<input class="form-control" placeholder="your password" type="password" name="loginPword">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+						<button class="btn btn-primary" type="submit">Log In</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div aria-hidden="true" class="modal fade" id="registerModal" role="dialog" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button aria-hidden="true" class="close" data-dismiss="modal" type="button">×</button>
+				<h4 class="modal-title">Register</h4>
+			</div>
+			<div class="modal-body">
+				<form accept-charset="UTF-8" action="register" method="post" role="form" id="registerForm">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-6">
+								<label class="control-label">Email</label>
+								<input class="form-control" placeholder="your username" type="text" name="registerEmail">
+							</div>
+							<div class="col-md-6">
+								<label class="control-label">Password</label>
+								<input class="form-control" placeholder="your password" type="password" name="registerPword">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+						<button class="btn btn-primary" type="submit">Sign Up</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<center>
+<a class="btn btn-default navbar-btn" data-toggle="modal" href="#loginModal">
+	Sign In
+</a>
+<a class="btn btn-default navbar-btn" data-toggle="modal" href="#registerModal">
+	Register
+</a>
+</center>

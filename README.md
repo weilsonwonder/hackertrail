@@ -23,9 +23,10 @@ The current architecture is based on the following. Attributes are omited, only 
 ## How to start
 1. Ensure Ruby on Rails has been installed on the system. For more information on how to install Ruby on Rails, refer to [RubyOnRails](http://rubyonrails.org/ "Ruby on Rails").
 2. Open your Terminal and navigate to the root of this project.
-3. Type ***rails server*** to run the server. Do not close the Terminal, otherwise the server will stop running.
-4. There should be a line that says something like "*=> Rails 4.1.5 application starting in development on http://0.0.0.0:3000*".
-5. Enter the address in your preferred browser.
+3. Type ***bundle install*** to update the necessary gemfiles. You only need to do this once.
+4. Type ***rails server*** to run the server. Do not close the Terminal, otherwise the server will stop running.
+5. There should be a line that says something like "*=> Rails 4.1.5 application starting in development on http://0.0.0.0:3000*".
+6. Enter the address in your preferred browser. In the event that does not work, try *http://localhost:3000*.
 
 ## How to stop
 1. Hit the shortcut keys **Control + C**.
