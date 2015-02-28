@@ -1,4 +1,6 @@
-<label class="control-label"><%= @event.ttype %></label>
+<h4 class="control-label" style="display: inline;">Edit Event</h4>
+<label class="control-label">(<%= @event.ttype %>)</label>
+
 <form accept-charset="UTF-8" action="editEvent" method="post">
 	<input type="hidden" value="<%= @event.id %>" name="event_id">
 	<div class="form-group">
@@ -44,3 +46,16 @@
 		<button class="btn btn-primary" type="submit" name="user_action" value="Update">Update</button>
 	</div>
 </form>
+
+<% if @event.participants.count > 0 %>
+<hr>
+<h4 class="control-label">Participants ( <%= @event.participants.count %> )</h4>
+<table style="width: 100%; padding: 20px;">
+	<tr>
+		<% @event.participants.each do |participant| %>
+		<td><label class="control-label"><%= participant.email %></label></td>
+		<% end %>
+	</tr>
+</table>
+<hr>
+<% end %>

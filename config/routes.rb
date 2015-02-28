@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     post "editEvent"
     get "viewEvent"
     get "allEvents"
+    post "participateEvent"
   end
 
   # catch all to root

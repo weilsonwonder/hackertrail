@@ -4,7 +4,9 @@ class Event < ActiveRecord::Base
 	before_save :checkNil
 
 	has_many :participations, :dependent => :destroy
+	has_many :participants, :through => :participations, :source => :account
 	has_many :ownerships, :dependent => :destroy
+	has_many :owners, :through => :ownerships, :source => :account
 	has_many :attrs, :dependent => :destroy
 
 	def self.validTypes

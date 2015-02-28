@@ -1,5 +1,7 @@
 <% if !@event_types.nil? %>
 <!-- first page to select event -->
+<h4 class="control-label">Create Event</h4>
+
 <form accept-charset="UTF-8" action="createEvent" method="get">
 	<div class="form-group">
 		<div class="row">
@@ -20,7 +22,9 @@
 
 <% elsif !@template.nil? %>
 <!-- second page to fill in details -->
-<label class="control-label"><%= @template.ttype %></label>
+<h4 class="control-label" style="display: inline;">Create Event</h4>
+<label class="control-label">(<%= @template.ttype %>)</label>
+
 <form accept-charset="UTF-8" action="createEvent" method="post">
 	<input type="hidden" value="<%= @template.id %>" name="template_id">
 	<div class="form-group">

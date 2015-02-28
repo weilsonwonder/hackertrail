@@ -1,0 +1,43 @@
+<h4 class="control-label">Event</h4>
+
+<table style="width: 100%; padding: 20px;">
+	<% @event.attrs.each do |attribute| %>
+	<tr>
+		<td><label class="control-label">Event <%= attribute.name %></label></td>
+		<td><label class="control-label"><%= attribute.value %></label></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td><label class="control-label">Event Type</label></td>
+		<td><label class="control-label"><%= @event.ttype %></label></td>
+	</tr>
+	<tr>
+		<td><label class="control-label">Event Privacy Type</label></td>
+		<td><label class="control-label"><%= @event.privacy_type %></label></td>
+	</tr>
+	<% if !@event.capacity.nil? && !@event.capacity.zero? %>
+	<tr>
+		<td><label class="control-label">Event Capacity</label></td>
+		<td><label class="control-label"><%= @event.capacity %></label></td>
+	</tr>
+	<% end %>
+	<tr>
+		<td><label class="control-label">Event Start Date</label></td>
+		<td><label class="control-label"><%= @event.start_date.strftime("%A, %d %b %Y") %></label></td>
+	</tr>
+	<tr>
+		<td><label class="control-label">Event End Date</label></td>
+		<td><label class="control-label"><%= @event.end_date.strftime("%A, %d %b %Y") %></label></td>
+	</tr>
+</table>
+
+<br>
+<form action="<%= dashboard_participateEvent_path %>" method="post" style="display:inline;">
+	<input type="hidden" value="<%= @event.id %>" name="event_id">
+	<% if @event.participants.include?(current_acct) %>
+	<button class="btn btn-primary" name="user_action" value="Leave">Leave Event</button>
+	<% else %>
+	<button class="btn btn-primary" name="user_action" value="Join">Join Event</button>
+	<% end %>
+</form>
+<hr>

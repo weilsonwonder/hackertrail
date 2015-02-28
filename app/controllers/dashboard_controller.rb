@@ -92,9 +92,43 @@ class DashboardController < ApplicationController
 	end
 
 	def viewEvent
+		@event = params.has_key?(:event_id) ? Event.find(params[:event_id].to_i) : nil
+
+		if @event.nil?
+			redirect_to dashboard_home_path, :notice => "Event does not exist"
+		end
 	end
 
 	def allEvents
+		@events = Event.select{ |event| DateTime.now < event.end_date }
+	end
+
+	def participateEvent
+		event = params.has_key?(:event_id) ? Event.find(params[:event_id].to_i) : nil
+
+		if event.nil?
+			redirect_to dashboard_home_path, :notice => "Event does not exist"
+		end
+
+		if params[:user_action] == "Join"
+			if !event.participants.include?(current_acct)
+				rsvp = Participation.new
+				rsvp.account = current_acct
+				rsvp.event = event
+				rsvp.save
+
+				redirect_to dashboard_viewEvent_path(:event_id => event.id), :notice => "You joined the event"
+			end
+		elsif params[:user_action] == "Leave"
+			if event.participants.include?(current_acct)
+				rsvp = Participation.where(:account => current_acct, :event => event)
+				rsvp.destroy_all
+
+				redirect_to dashboard_viewEvent_path(:event_id => event.id), :notice => "You left the event"
+			end
+		else
+			redirect_to dashboard_home_path
+		end
 	end
 
 	protected
