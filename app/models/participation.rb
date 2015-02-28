@@ -16,6 +16,6 @@ class Participation < ActiveRecord::Base
 
 	protected
 	def checkNil
-		self.privacy_type.nil? ? self.type = self.class.validTypes.first : nil
+		self.privacy_type.nil? ? self.privacy_type = self.class.validTypes.first : nil
 	end
 end

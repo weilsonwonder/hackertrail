@@ -1,4 +1,22 @@
-
-<form action="/logout" method="post">
-	<button class="btn btn-primary">Logout</button>
-</form>
+<% @participations.each do |rsvp| %>
+<%= rsvp.privacy_type %>
+<%= rsvp.event %>
+<%= rsvp.event.ttype %>
+<%= rsvp.event.privacy_type %>
+<%= rsvp.event.capacity %>
+<%= rsvp.event.start_date.readable %>
+<%= rsvp.event.end_date.readable %>
+---
+<% end %>
+<% if @participations.count > 0 %>
+<br>
+<hr>
+<% end %>
+<% @ownerships.each do |ownership| %>
+---
+<%= ownership.event.ttype %>
+<%= ownership.event.privacy_type %>
+<%= ownership.event.capacity %>
+<%= ownership.event.start_date.readable %>
+<%= ownership.event.end_date.readable %>
+<% end %>

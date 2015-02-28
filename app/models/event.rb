@@ -17,6 +17,8 @@ class Event < ActiveRecord::Base
 
 	protected
 	def checkNil
-		self.privacy_type.nil? ? self.type = self.class.validTypes.first : nil
+		self.privacy_type.nil? ? self.privacy_type = self.class.validTypes.first : nil
+		self.start_date.nil? ? self.start_date = DateTime.now : nil
+		self.end_date.nil? ? self.end_date = self.start_date.tomorrow : nil
 	end
 end

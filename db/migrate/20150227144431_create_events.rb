@@ -4,6 +4,8 @@ class CreateEvents < ActiveRecord::Migration
     	t.text :ttype
     	t.text :privacy_type
     	t.integer :capacity
+    	t.datetime :start_date
+    	t.datetime :end_date
       t.timestamps
     end
   end

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HackerTrail</title>
+	<link rel='stylesheet' href='/assets/css/swipebox.css'>
+	<link rel='stylesheet' href='/assets/css/green.css'>
+	<link rel='stylesheet' href='/assets/css/animate.min.css'>
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.6.2.min.js"></script>
+	<link href="/assets/apple-touch-icon.png" rel="apple-touch-icon">
+
+	<%= csrf_meta_tags %>
+</head>
+<body>
+
+	<a class="btn btn-default" href=<%= dashboard_home_path %>>Home</a>
+	<a class="btn btn-default" href=<%= dashboard_createEvent_path %>>Create Event</a>
+	<form action="/logout" method="post" style="display:inline;" ><button class="btn btn-primary">Logout</button></form>
+	<hr>
+
+	<!-- End Navbar -->
+
+	<% if flash[:notice] %>
+	<p class="alert alert-success"><%= flash[:notice] %></p>
+	<% elsif flash[:alert] %>
+	<p class="alert alert-danger"><%= flash[:alert] %></p>
+	<% end %>
+
+	<%= yield %>
+
+	<script src='/assets/js/jquery.js'></script>
+	<script src='/assets/js/color_switcher.js'></script>
+	<script src='/assets/js/bootstrap/carousel.js'></script>
+	<script src='/assets/js/bootstrap/transition.js'></script>
+	<script src='/assets/js/bootstrap/collapse.js'></script>
+	<script src='/assets/js/bootstrap/modal.js'></script>
+	<script src='/assets/js/bootstrap/dropdown.js'></script>
+	<script src='/assets/js/bootstrap/tooltip.js'></script>
+	<script src='/assets/js/jquery.visible.min.js'></script>
+	<script src='/assets/js/bootstrap/tab.js'></script>
+	<script src='/assets/js/jquery.isotope.min.js'></script>
+	<script src='/assets/js/jquery.knob.js'></script>
+	<script src='/assets/js/jquery.scrollUp.min.js'></script>
+	<script src='/assets/js/jquery.swipebox.min.js'></script>
+	<script src='/assets/js/jquery.smoothScroll.js'></script>
+	<script src='/assets/js/application.js'></script>
+</body>
+</html>
