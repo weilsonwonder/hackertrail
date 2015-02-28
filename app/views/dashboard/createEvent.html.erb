@@ -1,0 +1,73 @@
+<% if !@event_types.nil? %>
+<!-- first page to select event -->
+<form accept-charset="UTF-8" action="createEvent" method="get">
+	<div class="form-group">
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Event Kind</label>
+				<select class="form-control" name="event_type">
+					<% @event_types.each do |type| %>
+					<option value="<%= type %>"><%= type %></option>
+					<% end %>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">Select</button>
+	</div>
+</form>
+
+<% elsif !@template.nil? %>
+<!-- second page to fill in details -->
+<label class="control-label"><%= @template.ttype %></label>
+<form accept-charset="UTF-8" action="createEvent" method="post">
+	<input type="hidden" value="<%= @template.id %>" name="template_id">
+	<div class="form-group">
+		<% @template.attrs.each do |attribute| %>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label"><%= attribute.name %></label>
+				<input class="form-control" type="text" name="<%= attribute.name %>">
+			</div>
+		</div>
+		<% end %>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Privacy Type</label>
+				<select class="form-control" name="privacy_type">
+					<% @privacy_types.each do |type| %>
+					<option value="<%= type %>"><%= type %></option>
+					<% end %>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Capacity</label>
+				<input class="form-control" placeholder="(Optional)" type="number" min="0" name="capacity">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Start Date</label>
+				<input class="form-control" type="date" value="<%= Date.today.strftime("%Y-%m-%d") %>" min="<%= Date.today.strftime("%Y-%m-%d") %>" name="start_date" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">End Date</label>
+				<input class="form-control" type="date" value="<%= Date.tomorrow.strftime("%Y-%m-%d") %>" min="<%= Date.tomorrow.strftime("%Y-%m-%d") %>" name="end_date" required>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">Select</button>
+	</div>
+</form>
+
+<% else %>
+<!-- unexpected error? -->
+<label class="control-label">An unexpected error has occured. Please try again.</label>
+
+<% end %>

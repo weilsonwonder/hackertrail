@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   namespace "dashboard" do
     get "home"
     get "createEvent"
+    post "createEvent"
+    get "viewEvent"
+    get "allEvents"
   end
 
   # catch all to root

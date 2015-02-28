@@ -14,6 +14,8 @@ class Participation < ActiveRecord::Base
 	end
 	validates :privacy_type, inclusion: {:in => validTypes, :allow_nil => true}
 
+	default_scope { order(:updated_at => :desc) }
+
 	protected
 	def checkNil
 		self.privacy_type.nil? ? self.privacy_type = self.class.validTypes.first : nil

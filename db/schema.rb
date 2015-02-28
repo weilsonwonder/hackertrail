@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20150227144445) do
     t.text     "ttype"
     t.text     "privacy_type"
     t.integer  "capacity"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

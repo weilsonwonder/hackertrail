@@ -3,4 +3,6 @@ class Ownership < ActiveRecord::Base
 
 	belongs_to :account
 	belongs_to :event
+
+	default_scope { order(:updated_at => :desc) }
 end

@@ -1,22 +1,54 @@
-<% @participations.each do |rsvp| %>
-<%= rsvp.privacy_type %>
-<%= rsvp.event %>
-<%= rsvp.event.ttype %>
-<%= rsvp.event.privacy_type %>
-<%= rsvp.event.capacity %>
-<%= rsvp.event.start_date.readable %>
-<%= rsvp.event.end_date.readable %>
----
-<% end %>
 <% if @participations.count > 0 %>
-<br>
+<label class="control-label">Your RSVP</label>
+<% @participations.each do |rsvp| %>
+<div>
+	<%= rsvp.privacy_type %>
+	<%= rsvp.event %>
+	<%= rsvp.event.ttype %>
+	<%= rsvp.event.privacy_type %>
+	<%= rsvp.event.capacity %>
+	<%= rsvp.event.start_date %>
+	<%= rsvp.event.end_date %>
+</div>
+<% end %>
 <hr>
 <% end %>
+
+<% if @ownerships.count > 0 %>
+<label class="control-label">Your Events</label>
 <% @ownerships.each do |ownership| %>
----
-<%= ownership.event.ttype %>
-<%= ownership.event.privacy_type %>
-<%= ownership.event.capacity %>
-<%= ownership.event.start_date.readable %>
-<%= ownership.event.end_date.readable %>
+<a href="<%= dashboard_viewEvent_path %>/<%= ownership.event.id %>">
+	<table style="width: 100%; border: 2px solid black; padding: 20px;">
+		<% ownership.event.attrs.each do |attribute| %>
+		<tr>
+			<td><label class="control-label">Event <%= attribute.name %></label></td>
+			<td><label class="control-label"><%= attribute.value %></label></td>
+		</tr>
+		<% end %>
+		<tr>
+			<td><label class="control-label">Event Type</label></td>
+			<td><label class="control-label"><%= ownership.event.ttype %></label></td>
+		</tr>
+		<tr>
+			<td><label class="control-label">Event Privacy Type</label></td>
+			<td><label class="control-label"><%= ownership.event.privacy_type %></label></td>
+		</tr>
+		<% if !ownership.event.capacity.nil? && !ownership.event.capacity.zero? %>
+		<tr>
+			<td><label class="control-label">Event Capacity</label></td>
+			<td><label class="control-label"><%= ownership.event.capacity %></label></td>
+		</tr>
+		<% end %>
+		<tr>
+			<td><label class="control-label">Event Start Date</label></td>
+			<td><label class="control-label"><%= ownership.event.start_date.strftime("%A, %d %b %Y") %></label></td>
+		</tr>
+		<tr>
+			<td><label class="control-label">Event End Date</label></td>
+			<td><label class="control-label"><%= ownership.event.end_date.strftime("%A, %d %b %Y") %></label></td>
+		</tr>
+	</table>
+</a>
+<% end %>
+<hr>
 <% end %>

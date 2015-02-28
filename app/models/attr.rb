@@ -3,4 +3,6 @@ class Attr < ActiveRecord::Base
 
 	belongs_to :event
 	belongs_to :template
+
+	default_scope { order(:position => :asc) }
 end
