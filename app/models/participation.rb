@@ -13,6 +13,7 @@ class Participation < ActiveRecord::Base
 		]
 	end
 	validates :privacy_type, inclusion: {:in => validTypes, :allow_nil => true}
+	validates :account_id, :uniqueness => { :scope => :event_id }
 
 	default_scope { order(:updated_at => :desc) }
 

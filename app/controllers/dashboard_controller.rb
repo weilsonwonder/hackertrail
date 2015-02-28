@@ -56,8 +56,42 @@ class DashboardController < ApplicationController
 		end
 	end
 
-	def viewEvent
+	def editEvent
+		@event = params.has_key?(:event_id) ? Event.find(params[:event_id].to_i) : nil
 
+		if @event.nil?
+			redirect_to dashboard_home_path, :notice => "Event does not exist"
+		elsif !current_acct.own_events.include?(@event)
+			redirect_to dashboard_home_path, :notice => "You are not the creator of the event"
+		end
+
+		if request.get?
+			@privacy_types = Event.validTypes
+		else # Post method
+			if params[:user_action] == "Cancel"
+				@event.destroy
+
+				redirect_to dashboard_home_path, :notice => "Event has been cancelled"
+			elsif params[:user_action] == "Update"
+				@event.privacy_type = params.has_key?(:privacy_type) ? params[:privacy_type] : nil
+				@event.capacity = params.has_key?(:capacity) ? params[:capacity] : nil
+				@event.start_date = params.has_key?(:start_date) ? params[:start_date] : nil
+				@event.end_date = params.has_key?(:end_date) ? params[:end_date] : nil
+				@event.save
+
+				@event.attrs.each do |attribute|
+					attribute.value = params.has_key?(attribute.name) ? params[attribute.name] : nil
+					attribute.save
+				end
+
+				redirect_to dashboard_home_path, :notice => "Event has been updated"
+			else
+				redirect_to dashboard_home_path
+			end
+		end
+	end
+
+	def viewEvent
 	end
 
 	def allEvents

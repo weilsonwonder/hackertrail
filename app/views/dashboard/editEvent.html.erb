@@ -1,0 +1,46 @@
+<label class="control-label"><%= @event.ttype %></label>
+<form accept-charset="UTF-8" action="editEvent" method="post">
+	<input type="hidden" value="<%= @event.id %>" name="event_id">
+	<div class="form-group">
+		<% @event.attrs.each do |attribute| %>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label"><%= attribute.name %></label>
+				<input class="form-control" type="text" name="<%= attribute.name %>" value="<%= attribute.value %>">
+			</div>
+		</div>
+		<% end %>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Privacy Type</label>
+				<select class="form-control" name="privacy_type">
+					<% @privacy_types.each do |type| %>
+					<option value="<%= type %>" <% if @event.privacy_type == type %>selected<% end %>><%= type %></option>
+					<% end %>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Capacity</label>
+				<input class="form-control" placeholder="(Optional)" type="number" min="0" name="capacity" value="<%= @event.capacity %>">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Start Date</label>
+				<input class="form-control" type="date" name="start_date" value="<%= @event.start_date.strftime("%Y-%m-%d") %>" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">End Date</label>
+				<input class="form-control" type="date" name="end_date" value="<%= @event.end_date.strftime("%Y-%m-%d") %>" required>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" type="submit" name="user_action" value="Cancel">Cancel Event</button>
+		<button class="btn btn-primary" type="submit" name="user_action" value="Update">Update</button>
+	</div>
+</form>

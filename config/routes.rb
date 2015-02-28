@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     get "home"
     get "createEvent"
     post "createEvent"
+    get "editEvent"
+    post "editEvent"
     get "viewEvent"
     get "allEvents"
   end

@@ -4,7 +4,7 @@ class Template < ActiveRecord::Base
 	before_save :checkNil
 
 	belongs_to :account
-	has_many :attrs
+	has_many :attrs, :dependent => :destroy
 
 	def self.validTypes
 		return [

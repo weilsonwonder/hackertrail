@@ -9,8 +9,10 @@ class Account < ActiveRecord::Base
 
 	has_many :profiles
 	has_many :participations
+	has_many :participating_events, :through => :participations, :source => :event
 	has_many :ownerships
-	has_many :templates
+	has_many :own_events, :through => :ownerships, :source => :event
+	has_many :templates, :dependent => :destroy
 
 	def self.validTypes
 		return [
