@@ -5,5 +5,10 @@ Rails.application.routes.draw do
   post "login" => "session#create"
   post "logout" => "session#destroy"
 
-  get "dashboard/home"
+  namespace "dashboard" do
+    get "home"
+  end
+
+  # catch all to root
+  get "*path" => redirect("/")
 end

@@ -4,6 +4,10 @@ class DashboardController < ApplicationController
 	def home
 	end
 
+	def boo
+
+	end
+
 	protected
 	def require_login
 		if current_acct.nil?
