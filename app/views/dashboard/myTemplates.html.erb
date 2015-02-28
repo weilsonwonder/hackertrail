@@ -1,0 +1,30 @@
+<% if @templates.count > 0 %>
+<h4 class="control-label" style="display:inline;">My Templates </h4>
+<a class="btn btn-default" href=<%= dashboard_createTemplate_path %>>+</a>
+<% @templates.each do |temp| %>
+<a href="<%= dashboard_editTemplate_path %>?template_id=<%= temp.id %>">
+	<table style="width: 100%; border: 4px solid black; padding: 20px;">
+		<tr>
+			<td style="width: 30%;"><label class="control-label">Template Name</label></td>
+			<td><label class="control-label"><%= temp.name %></label></td>
+		</tr>
+		<tr>
+			<td style="width: 30%;"><label class="control-label">Template Type</label></td>
+			<td><label class="control-label"><%= temp.ttype %></label></td>
+		</tr>
+		<tr>
+			<td style="width: 30%;"><label class="control-label">Template Attributes</label></td>
+			<td>
+				<% temp.attrs.each_with_index do |attribute, index| %>
+				<label class="control-label"><%= attribute.name %></label>
+				<% if index < (temp.attrs.count - 1) %>
+				,
+				<% end %>
+				<% end %>
+			</td>
+		</tr>
+	</table>
+</a>
+<% end %>
+<hr>
+<% end %>

@@ -1,0 +1,49 @@
+<h4 class="control-label">Create Template</h4>
+
+<form accept-charset="UTF-8" action="createTemplate" method="post">
+	<div class="form-group">
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Name</label>
+				<input class="form-control" type="text" name="name">
+			</div>
+		</div>
+		<div id="attr_div1" class="row attrClone">
+			<div class="col-md-6">
+				<label class="control-label">Attribute Name</label>
+				<input class="form-control" type="text" id="attr1" name="attr1">
+			</div>
+		</div>
+
+		<div>
+			<input type="button" class="btn btn-default" id="btnAdd" value="Add Attribute">
+			<input type="button" class="btn btn-default" id="btnDel" value="Remove Attribute" disabled="disabled">
+		</div>
+
+		<script>
+		$(document).ready(function() {
+			$('#btnAdd').click(function() {
+				var num = $('.attrClone').length;
+				var newNum = new Number(num + 1);
+				var newElem = $('#attr_div' + num).clone().attr('id', 'attr_div' + newNum);
+
+				newElem.children().children(':input').attr('id', 'attr' + newNum).attr('name', 'attr' + newNum);
+				$('#attr_div' + num).after(newElem);
+
+				$('#btnDel').removeAttr('disabled');
+    	});
+
+			$('#btnDel').click(function() {
+				var num = $('.attrClone').length;
+				$('#attr_div' + num).remove();
+
+				if (num-1 == 1)
+					$('#btnDel').attr('disabled','disabled');
+			});
+		});
+		</script>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">Create</button>
+	</div>
+</form>

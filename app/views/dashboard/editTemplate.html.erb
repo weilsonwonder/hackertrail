@@ -1,0 +1,54 @@
+<h4 class="control-label" style="display: inline;">Edit Template</h4>
+<label class="control-label">(<%= @template.ttype %>)</label>
+
+<form accept-charset="UTF-8" action="editTemplate" method="post">
+	<input type="hidden" value="<%= @template.id %>" name="template_id">
+	<div class="form-group">
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Name</label>
+				<input class="form-control" type="text" name="name" value="<%= @template.name %>">
+			</div>
+		</div>
+		<% @template.attrs.each_with_index do |attribute, index| %>
+		<div id="attr_div<%= index+1 %>" class="row attrClone">
+			<div class="col-md-6">
+				<label class="control-label">Attribute Name</label>
+				<input class="form-control" type="text" id="attr<%= index+1 %>" name="attr<%= index+1 %>" value="<%= attribute.name %>">
+			</div>
+		</div>
+		<% end %>
+
+		<div>
+			<input type="button" class="btn btn-default" id="btnAdd" value="Add Attribute">
+			<input type="button" class="btn btn-default" id="btnDel" value="Remove Attribute" <% if @template.attrs.count <= 1 %>disabled="disabled"<% end %>>
+		</div>
+
+		<script>
+		$(document).ready(function() {
+			$('#btnAdd').click(function() {
+				var num = $('.attrClone').length;
+				var newNum = new Number(num + 1);
+				var newElem = $('#attr_div' + num).clone().attr('id', 'attr_div' + newNum);
+
+				newElem.children().children(':input').attr('id', 'attr' + newNum).attr('name', 'attr' + newNum);
+				$('#attr_div' + num).after(newElem);
+
+				$('#btnDel').removeAttr('disabled');
+    	});
+
+			$('#btnDel').click(function() {
+				var num = $('.attrClone').length;
+				$('#attr_div' + num).remove();
+
+				if (num-1 == 1)
+					$('#btnDel').attr('disabled','disabled');
+			});
+		});
+		</script>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-default" type="submit" name="user_action" value="Delete">Delete Template</button>
+		<button class="btn btn-primary" type="submit" name="user_action" value="Update">Update</button>
+	</div>
+</form>

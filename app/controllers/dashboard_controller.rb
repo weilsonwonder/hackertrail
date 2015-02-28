@@ -3,34 +3,26 @@ class DashboardController < ApplicationController
 
 	# First page of the dashboard
 	def home
-		@ownerships = current_acct.ownerships
+		@own_events = current_acct.own_events
 		@participations = current_acct.participations
 	end
 
-	# Create an event
 	def createEvent
 		if request.get?
 			if params.has_key?(:event_type)
-				if Template.validTypes.include?(params[:event_type])
-					@template = current_acct.templates.where(:ttype => params[:event_type]).first
-					@privacy_types = Event.validTypes
-				else
-					@event_types = []
-					current_acct.templates.each do |template|
-						@event_types << template.ttype
-					end
-				end
+				@template = current_acct.templates.where(:name => params[:event_type]).first
+				@privacy_types = Event.validTypes
 			else
 				@event_types = []
 				current_acct.templates.each do |template|
-					@event_types << template.ttype
+					@event_types << template.name
 				end
 			end
 		else # Post method
 			template = params.has_key?(:template_id) ? Template.find(params[:template_id].to_i) : nil
 			if !template.nil?
 				event = Event.new
-				event.ttype = template.ttype
+				event.ttype = template.name
 				event.privacy_type = params.has_key?(:privacy_type) ? params[:privacy_type] : nil
 				event.capacity = params.has_key?(:capacity) ? params[:capacity] : nil
 				event.start_date = params.has_key?(:start_date) ? params[:start_date] : nil
@@ -100,7 +92,7 @@ class DashboardController < ApplicationController
 	end
 
 	def allEvents
-		@events = Event.select{ |event| DateTime.now < event.end_date }
+		@events = Event.where("? < end_date", DateTime.now)
 	end
 
 	def participateEvent
@@ -128,6 +120,74 @@ class DashboardController < ApplicationController
 			end
 		else
 			redirect_to dashboard_home_path
+		end
+	end
+
+	def myTemplates
+		@templates = current_acct.templates
+	end
+
+	def createTemplate
+		if request.post?
+			temp = Template.new
+			temp.name = params.has_key?(:name) ? params[:name] : ""
+			temp.account = current_acct
+			temp.save
+
+			attr_name = "attr"
+			attr_index = 1
+			while params.has_key?(attr_name+attr_index.to_s)
+				att = Attr.new
+				att.name = params[attr_name+attr_index.to_s]
+				att.position = attr_index
+				att.template = temp
+				att.save
+				attr_index = attr_index + 1
+			end
+
+			redirect_to dashboard_myTemplates_path, :notice => "Template created"
+		end
+	end
+
+	def editTemplate
+		@template = params.has_key?(:template_id) ? Template.find(params[:template_id].to_i) : nil
+
+		if @template.nil?
+			redirect_to dashboard_home_path, :notice => "Template does not exist"
+		elsif !current_acct.templates.include?(@template)
+			redirect_to dashboard_home_path, :notice => "You are not the owner of the template"
+		end
+
+		if request.get?
+			@privacy_types = Event.validTypes
+		else # Post method
+			if params[:user_action] == "Delete"
+				if current_acct.templates.count > 0
+					@template.destroy
+					redirect_to dashboard_myTemplates_path, :notice => "Template deleted"
+				else
+					redirect_to dashboard_myTemplates_path, :notice => "You cannot delete your last template"
+				end
+			elsif params[:user_action] == "Update"
+				@template.name = params.has_key?(:name) ? params[:name] : ""
+				@template.attrs.destroy_all
+				@template.save
+
+				attr_name = "attr"
+				attr_index = 1
+				while params.has_key?(attr_name+attr_index.to_s)
+					att = Attr.new
+					att.name = params[attr_name+attr_index.to_s]
+					att.position = attr_index
+					att.template = @template
+					att.save
+					attr_index = attr_index + 1
+				end
+
+				redirect_to dashboard_myTemplates_path, :notice => "Your template has been updated"
+			else
+				redirect_to dashboard_home_path
+			end
 		end
 	end
 

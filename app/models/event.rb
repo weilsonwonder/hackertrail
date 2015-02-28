@@ -17,7 +17,7 @@ class Event < ActiveRecord::Base
 	end
 	validates :privacy_type, inclusion: {:in => validTypes, :allow_nil => true}
 
-	default_scope { order(:start_date => :desc) }
+	default_scope { order(:start_date => :asc) }
 
 	protected
 	def checkNil

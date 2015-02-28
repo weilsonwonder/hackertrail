@@ -1,81 +1,81 @@
-<% if @participations.count > 0 %>
 <h3 class="control-label">Your RSVPs</h3>
+<% if @participations.count > 0 %>
 <% @participations.each do |rsvp| %>
 <a href="<%= dashboard_viewEvent_path %>?event_id=<%= rsvp.event.id %>">
 	<table style="width: 100%; border: 2px solid black; padding: 20px;">
-		<tr>
-			<td><label class="control-label">Your RSVP</label></td>
-			<td><label class="control-label"><%= rsvp.privacy_type %></label></td>
-		</tr>
 		<% rsvp.event.attrs.each do |attribute| %>
 		<tr>
-			<td><label class="control-label">Event <%= attribute.name %></label></td>
+			<td style="width: 30%;"><label class="control-label">Event <%= attribute.name %></label></td>
 			<td><label class="control-label"><%= attribute.value %></label></td>
 		</tr>
 		<% end %>
 		<tr>
-			<td><label class="control-label">Event Type</label></td>
+			<td style="width: 30%;"><label class="control-label">Event Type</label></td>
 			<td><label class="control-label"><%= rsvp.event.ttype %></label></td>
 		</tr>
 		<tr>
-			<td><label class="control-label">Event Privacy Type</label></td>
+			<td style="width: 30%;"><label class="control-label">Event Privacy Type</label></td>
 			<td><label class="control-label"><%= rsvp.event.privacy_type %></label></td>
 		</tr>
 		<% if !rsvp.event.capacity.nil? && !rsvp.event.capacity.zero? %>
 		<tr>
-			<td><label class="control-label">Event Capacity</label></td>
+			<td style="width: 30%;"><label class="control-label">Event Capacity</label></td>
 			<td><label class="control-label"><%= rsvp.event.capacity %></label></td>
 		</tr>
 		<% end %>
 		<tr>
-			<td><label class="control-label">Event Start Date</label></td>
+			<td style="width: 30%;"><label class="control-label">Event Start Date</label></td>
 			<td><label class="control-label"><%= rsvp.event.start_date.strftime("%A, %d %b %Y") %></label></td>
 		</tr>
 		<tr>
-			<td><label class="control-label">Event End Date</label></td>
+			<td style="width: 30%;"><label class="control-label">Event End Date</label></td>
 			<td><label class="control-label"><%= rsvp.event.end_date.strftime("%A, %d %b %Y") %></label></td>
 		</tr>
 	</table>
 </a>
 <% end %>
-<hr>
+<% else %>
+<h4 class="control-label">You currently are not participating in any event! Go to "Browse Events" to join new exciting events!</h4>
 <% end %>
+<hr>
 
-<% if @ownerships.count > 0 %>
 <h3 class="control-label">Your Events</h3>
-<% @ownerships.each do |ownership| %>
-<a href="<%= dashboard_editEvent_path %>?event_id=<%= ownership.event.id %>">
+<% if @own_events.count > 0 %>
+<% @own_events.each do |event| %>
+<a href="<%= dashboard_editEvent_path %>?event_id=<%= event.id %>">
 	<table style="width: 100%; border: 2px solid black; padding: 20px;">
-		<% ownership.event.attrs.each do |attribute| %>
+		<% event.attrs.each do |attribute| %>
 		<tr>
-			<td><label class="control-label">Event <%= attribute.name %></label></td>
+			<td style="width: 30%;"><label class="control-label">Event <%= attribute.name %></label></td>
 			<td><label class="control-label"><%= attribute.value %></label></td>
 		</tr>
 		<% end %>
 		<tr>
-			<td><label class="control-label">Event Type</label></td>
-			<td><label class="control-label"><%= ownership.event.ttype %></label></td>
+			<td style="width: 30%;"><label class="control-label">Event Type</label></td>
+			<td><label class="control-label"><%= event.ttype %></label></td>
 		</tr>
 		<tr>
-			<td><label class="control-label">Event Privacy Type</label></td>
-			<td><label class="control-label"><%= ownership.event.privacy_type %></label></td>
+			<td style="width: 30%;"><label class="control-label">Event Privacy Type</label></td>
+			<td><label class="control-label"><%= event.privacy_type %></label></td>
 		</tr>
-		<% if !ownership.event.capacity.nil? && !ownership.event.capacity.zero? %>
+		<% if !event.capacity.nil? && !event.capacity.zero? %>
 		<tr>
-			<td><label class="control-label">Event Capacity</label></td>
-			<td><label class="control-label"><%= ownership.event.capacity %></label></td>
+			<td style="width: 30%;"><label class="control-label">Event Capacity</label></td>
+			<td><label class="control-label"><%= event.capacity %></label></td>
 		</tr>
 		<% end %>
 		<tr>
-			<td><label class="control-label">Event Start Date</label></td>
-			<td><label class="control-label"><%= ownership.event.start_date.strftime("%A, %d %b %Y") %></label></td>
+			<td style="width: 30%;"><label class="control-label">Event Start Date</label></td>
+			<td><label class="control-label"><%= event.start_date.strftime("%A, %d %b %Y") %></label></td>
 		</tr>
 		<tr>
-			<td><label class="control-label">Event End Date</label></td>
-			<td><label class="control-label"><%= ownership.event.end_date.strftime("%A, %d %b %Y") %></label></td>
+			<td style="width: 30%;"><label class="control-label">Event End Date</label></td>
+			<td><label class="control-label"><%= event.end_date.strftime("%A, %d %b %Y") %></label></td>
 		</tr>
 	</table>
 </a>
 <% end %>
-<hr>
+<% else %>
+<h4 class="control-label">You can create your own events! Go to "Create Event" and start creating your exciting events!</h4>
 <% end %>
+<hr>

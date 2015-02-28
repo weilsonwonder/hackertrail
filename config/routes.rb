@@ -14,6 +14,11 @@ Rails.application.routes.draw do
     get "viewEvent"
     get "allEvents"
     post "participateEvent"
+    get "myTemplates"
+    get "createTemplate"
+    post "createTemplate"
+    get "editTemplate"
+    post "editTemplate"
   end
 
   # catch all to root
